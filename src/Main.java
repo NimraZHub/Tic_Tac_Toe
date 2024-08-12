@@ -8,7 +8,7 @@ public class Main {
     static JFrame frame;
     static JTextField textField;
     static JPanel panel;
-    static JButton[] buttons = new JButton[9]; // 9 buttons for the 3x3 grid
+    static JButton[] buttons = new JButton[9];
     static boolean playerX = true; // true = Player X, false = Player O
 
     public static void main(String[] args) {
@@ -58,14 +58,11 @@ public class Main {
 
         frame.setVisible(true);
     }
-
-    // Method to check for a win
     public static void checkForWin() {
         String[][] board = new String[3][3];
         for (int i = 0; i < 9; i++) {
             board[i / 3][i % 3] = buttons[i].getText();
         }
-
         // Check rows, columns, and diagonals
         for (int i = 0; i < 3; i++) {
             if (checkLine(board[i][0], board[i][1], board[i][2]) ||
@@ -79,8 +76,6 @@ public class Main {
             announceWinner(board[1][1]);
             return;
         }
-
-        // Check for a draw
         boolean draw = true;
         for (int i = 0; i < 9; i++) {
             if (buttons[i].getText().equals("")) {
@@ -93,19 +88,14 @@ public class Main {
             disableButtons();
         }
     }
-
     // Helper method to check if all three values in a line are the same
     public static boolean checkLine(String a, String b, String c) {
         return !a.equals("") && a.equals(b) && b.equals(c);
     }
-
-    // Method to announce the winner and disable buttons
     public static void announceWinner(String winner) {
         textField.setText("Player " + winner + " Wins!");
         disableButtons();
     }
-
-    // Method to disable all buttons after the game ends
     public static void disableButtons() {
         for (JButton button : buttons) {
             button.setEnabled(false);
